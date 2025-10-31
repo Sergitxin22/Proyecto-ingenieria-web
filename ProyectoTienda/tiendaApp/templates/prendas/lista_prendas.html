@@ -1,0 +1,30 @@
+{% for prenda in prendas %}
+
+<style>
+    th,
+    tr,
+    td,
+    table {
+        border: 1px solid black;
+    }
+</style>
+
+<h1>{{ prenda }}</h1>
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Talla</th>
+        <th>Precio</th>
+        <th>Foto</th>
+    </tr>
+    <tr>
+        <td>{{ prenda.nombre }}</td>
+        <td>{{ prenda.descripcion }}</td>
+        <td>{{ prenda.talla }}</td>
+        <td>{{ prenda.precio }} €</td>
+        <td><img src="{{prenda.logo}}" alt="Imagen de la prenda" width="50"></td>
+    </tr>
+</table>
+{% endfor %}
