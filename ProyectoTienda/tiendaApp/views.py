@@ -10,3 +10,8 @@ def lista_prendas(request):
     prendas = Prenda.objects.all()
     context = {'prendas': prendas}
     return render(request, 'prendas/lista_prendas.html', context)
+
+def lista_pedidos(request):
+    pedidos = Pedido.objects.all()
+    context = {"pedidos": pedidos}
+    return render(request, 'pedidos/lista_pedidos.html', context)
