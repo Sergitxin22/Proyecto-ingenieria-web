@@ -1,0 +1,35 @@
+{% extends 'base.html'%}
+
+{%block content %}
+{% for cliente in clientes %}
+
+<style>
+    th,
+    tr,
+    td,
+    table {
+        border: 1px solid black;
+    }
+</style>
+
+<h1>{{ cliente }}</h1>
+
+<table>
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th>Direccion</th>
+        <th>Foto</th>
+    </tr>
+    <tr>
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.apellido }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.direccion }} </td>
+        <td><img src="{{cliente.logo}}" alt="Imagen del cliente" width="50"></td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock%}
