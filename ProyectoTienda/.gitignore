@@ -1,0 +1,6 @@
+# Ignorar cachés de Python
+ProyectoTienda/__pycache__/
+tiendaApp/__pycache__/
+
+# Opcionalmente, ignorar todos los __pycache__ del proyecto
+**/__pycache__/
