@@ -22,7 +22,7 @@
     }
 </style>
 <a href="{% url 'detalles_pedido' pedido.id %}">
-<h1>Pedido {{ pedido.id }}</h1>
+    <h1>Pedido {{ pedido.id }}</h1>
 </a>
 
 <table>
@@ -47,4 +47,5 @@
 </table>
 {% endfor %}
 
+<a href="{% url 'listaTienda' %}">Volver al indice</a>
 {% endblock%}
