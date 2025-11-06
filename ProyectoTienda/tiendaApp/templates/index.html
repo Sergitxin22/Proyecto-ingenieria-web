@@ -1,0 +1,8 @@
+{% extends 'base.html'%}
+
+{%block content %}
+<a href="{% url 'lista_clientes' %}">Ver todos los clientes</a> <br>
+<a href="{% url 'lista_prendas' %}">Ver todas las prendas</a> <br>
+<a href="{% url 'lista_pedidos' %}">Ver todos los pedidos</a>
+
+{% endblock%}

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import Cliente, Prenda, Pedido
 
 def index(request):
-    return HttpResponse('primera vista')
+    return render(request,'index.html')
 # Create your views here.
 
 def lista_prendas(request):
