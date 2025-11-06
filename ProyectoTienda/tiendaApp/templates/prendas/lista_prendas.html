@@ -3,14 +3,6 @@
 {%block content %}
 {% for prenda in prendas %}
 
-<style>
-    th,
-    tr,
-    td,
-    table {
-        border: 1px solid black;
-    }
-</style>
 <a href="{% url 'detalles_prenda' prenda.id %}">
     <h1>{{ prenda }}</h1>
 </a>

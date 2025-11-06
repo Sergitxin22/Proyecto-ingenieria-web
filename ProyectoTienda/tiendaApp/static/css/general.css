@@ -1,0 +1,40 @@
+/* CSS Reset */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Estilos propios */
+
+th,
+tr,
+td,
+table {
+    border: 1px solid black;
+}
+
+td {
+    padding: 10px;
+
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    /* Reducir el espacio entre el punto y el texto del li. Ajusta el valor si quieres más/menos espacio */
+    padding-left: 1.2em;
+}
+
+li {
+    /* Aseguramos que los li no añadan sangrías extra */
+    padding-left: 0;
+}

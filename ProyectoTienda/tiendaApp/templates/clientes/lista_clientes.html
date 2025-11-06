@@ -3,15 +3,6 @@
 {%block content %}
 {% for cliente in clientes %}
 
-<style>
-    th,
-    tr,
-    td,
-    table {
-        border: 1px solid black;
-    }
-</style>
-
 <a href="{% url 'detalles_cliente' cliente.id %}">
     <h1>{{ cliente }}</h1>
 </a>
