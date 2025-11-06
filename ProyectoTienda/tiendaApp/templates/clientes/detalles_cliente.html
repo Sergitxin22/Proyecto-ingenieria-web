@@ -1,0 +1,8 @@
+<h1> {{cliente.nombre}} </h1>
+<h2>{{cliente.apellido}}</h2>
+
+    <p> <strong>Email:</strong>{{liga.email}}</p> 
+    <p><strong>Direccion:</strong>{{liga.direccion}}</p>
+    <img src="{{cliente.foto}}" alt="imagen del cliente">
+
+    {% for equipo in liga.equipos.all %}
