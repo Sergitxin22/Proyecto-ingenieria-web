@@ -24,14 +24,14 @@ def lista_clientes(request):
 def detalle_prenda(request, pk):
     prenda = get_object_or_404(Prenda, pk=pk)
     context = {'Prenda': prenda}
-    return render(request, 'prendas/detalle_prenda.html', context)
+    return render(request, 'prendas/detalles_prenda.html', context)
 
 def detalle_pedido(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     context = {'Pedido': pedido}
-    return render(request, 'pedidos/detalle_pedido.html', context)
+    return render(request, 'pedidos/detalles_pedido.html', context)
 
 def detalle_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     context = {'Cliente': cliente}
-    return render(request, 'clientes/detalle_cliente.html', context)
+    return render(request, 'clientes/detalles_cliente.html', context)
