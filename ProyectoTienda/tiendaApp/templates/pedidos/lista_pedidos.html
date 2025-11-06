@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+
+{%block content %}
+
+{% for pedido in pedidos %}
+
+<h1>{{ pedido.id }}</h1>
+
+<table>
+    <tr>
+        <th>Cliente</th>
+        <th>Prendas</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+
+    </tr>
+    <tr>
+        <td>{{ pedido.cliente }}</td>
+        <td>
+            <ul>
+                {% for prenda in pedido.prendas.all %}
+                <li>{{ prenda }}</li>
+                {% endfor %}
+
+            </ul>
+            
+        </td>
+        <td>
+            <li>{{ pedido.precio }}</li>
+        </td>
+        <td>
+            <li><img scr="{{ pedido.imagen }}"></li>
+        </td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock %}
