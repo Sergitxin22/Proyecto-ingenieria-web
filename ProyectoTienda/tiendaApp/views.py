@@ -21,9 +21,19 @@ def lista_clientes(request):
     context = {"clientes": clientes}
     return render(request, 'clientes/lista_clientes.html', context)
 
-def detalle_prendas(request, pk):
+def detalle_prenda(request, pk):
     Prenda = get_object_or_404(Prenda, pk=pk)
     context = {'Prenda': Prenda}
-    return render(request, 'prendas/detalle_prendas.html', context)
+    return render(request, 'prendas/detalle_prenda.html', context)
+
+def detalle_pedido(request, pk):
+    Pedido = get_object_or_404(Pedido, pk=pk)
+    context = {'Pedido': Pedido}
+    return render(request, 'pedidos/detalle_pedido.html', context)
+
+def detalle_cliente(request, pk):
+    Cliente = get_object_or_404(Cliente, pk=pk)
+    context = {'Cliente': Cliente}
+    return render(request, 'clientes/detalle_cliente.html', context)
 
 
