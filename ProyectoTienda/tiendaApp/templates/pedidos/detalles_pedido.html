@@ -1,6 +1,9 @@
-<h1>{{pedido.id}}</h1>
-<p><strong>Cliente: </strong>{{pedido.cliente}}</p>
-<p><strong>Prenda: </strong>{{pedido.prenda}}</p>
-<p><strong>Precio: </strong>{{pedido.precio}}</p>
+<h1>{{Pedido.id}}</h1>
+<p><strong>Cliente: </strong>{{Pedido.cliente}}</p>
+<p><strong>Prendas: </strong></p>
+{% for prenda in Pedido.prendas.all %}
+                <li>{{ prenda }}</li>
+                {% endfor %}
+<p><strong>Precio: </strong>{{Pedido.precio}}</p>
 
 <h3></h3>

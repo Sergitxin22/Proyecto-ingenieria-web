@@ -21,17 +21,17 @@ def lista_clientes(request):
     context = {"clientes": clientes}
     return render(request, 'clientes/lista_clientes.html', context)
 
-def detalle_prenda(request, pk):
+def detalles_prenda(request, pk):
     prenda = get_object_or_404(Prenda, pk=pk)
     context = {'Prenda': prenda}
     return render(request, 'prendas/detalles_prenda.html', context)
 
-def detalle_pedido(request, pk):
+def detalles_pedido(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     context = {'Pedido': pedido}
     return render(request, 'pedidos/detalles_pedido.html', context)
 
-def detalle_cliente(request, pk):
+def detalles_cliente(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
     context = {'Cliente': cliente}
     return render(request, 'clientes/detalles_cliente.html', context)
