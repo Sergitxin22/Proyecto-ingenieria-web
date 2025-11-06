@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Cliente, Prenda, Pedido
+from django.shortcuts import render, get_object_or_404
 
 def index(request):
     return render(request,'index.html')
@@ -20,3 +20,10 @@ def lista_clientes(request):
     clientes = Cliente.objects.all()
     context = {"clientes": clientes}
     return render(request, 'clientes/lista_clientes.html', context)
+
+def detalle_prendas(request, pk):
+    Prenda = get_object_or_404(Prenda, pk=pk)
+    context = {'Prenda': Prenda}
+    return render(request, 'prendas/detalle_prendas.html', context)
+
+
