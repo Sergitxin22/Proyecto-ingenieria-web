@@ -1,36 +1,49 @@
 {% extends 'base.html'%}
 
 {%block content %}
-
 {% for pedido in pedidos %}
 
-<h1>{{ pedido.id }}</h1>
+<style>
+    th,
+    tr,
+    td,
+    table {
+        border: 1px solid black;
+    }
+
+    td {
+        padding: 10px;
+
+    }
+
+    ul {
+        padding: 0px;
+        margin: 0px;
+    }
+</style>
+
+<h1>Pedido {{ pedido.id }}</h1>
 
 <table>
     <tr>
         <th>Cliente</th>
         <th>Prendas</th>
         <th>Precio</th>
-        <th>Imagen</th>
-
     </tr>
     <tr>
         <td>{{ pedido.cliente }}</td>
         <td>
             <ul>
                 {% for prenda in pedido.prendas.all %}
-                <li>{{ prenda }}</li>
+                <li>
+                    {{ prenda }}
+                </li>
                 {% endfor %}
-
             </ul>
-            
         </td>
-        <td>
-            <li>{{ pedido.precio }}</li>
-        </td>
-
+        <td>{{ pedido.precio| default:"0"}} €</td>
     </tr>
 </table>
 {% endfor %}
 
-{% endblock %}
+{% endblock%}
