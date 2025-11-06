@@ -1,7 +1,9 @@
 <h1>{{Prenda.nombre}}</h1>
-<p><strong>Descripcion:</strong>{{ Prenda.descripcion}}</p>
-<p><strong>Talla:</strong>{{ Prenda.talla}}</p>
-<p><strong>Precio:</strong>{{ Prenda.precio}}</p>
+<p><strong>Descripcion: </strong>{{ Prenda.descripcion}}</p>
+<p><strong>Talla: </strong>{{ Prenda.talla}}</p>
+<p><strong>Precio: </strong>{{ Prenda.precio}} €</p>
 <!--<img src="{{prenda.logo}}" alt="Imagen de la prenda" width="100px"> -->
+<p> <strong> Foto:</strong> <br><img src="{{Prenda.foto}}" alt="imagen de la prenda" width="300px"></p>
+
 
 <a href="{% url 'lista_prendas' %}">Volver al listado de prendas</a>
