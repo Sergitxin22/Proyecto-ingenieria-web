@@ -1,4 +1,6 @@
+{% extends 'base.html'%}
 
+{%block content %}
 <h1> {{Cliente}} </h1>
 <h2>{{Cliente.apellido}}</h2>
 <p> <strong>Email:</strong>{{Cliente.email}}</p> 
@@ -6,3 +8,4 @@
     <p> <strong> Foto:</strong> <br><img src="{{Cliente.foto}}" alt="imagen del cliente" width="300px"></p>
 
 <a href="{% url 'lista_clientes' %}">Volver al listado de clientes</a>
+{%endblock%}

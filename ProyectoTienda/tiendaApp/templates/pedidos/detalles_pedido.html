@@ -1,3 +1,6 @@
+{% extends 'base.html'%}
+
+{% block content %}
 <h1>Pedido {{Pedido.id}}</h1>
 <p><strong>Cliente: </strong><a href="{% url 'detalles_cliente' Pedido.cliente.id %}">{{Pedido.cliente.nombre}}</a></p>
 <p><strong>Prendas: </strong></p>
@@ -7,3 +10,4 @@
 <p><strong>Precio: </strong>{{Pedido.precio| default:"0"}} €</p>
 
 <a href="{% url 'lista_pedidos' %}">Volver al listado de pedidos</a>
+{% endblock %}
