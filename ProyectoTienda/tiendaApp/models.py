@@ -32,8 +32,18 @@ class Prenda(models.Model):
 
 class Pedido(models.Model):
     precio = models.CharField(max_length=100, blank=True)
+    fecha = models.DateField(max_length=100)
     cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE, related_name='usuarioPedido')
     prendas = models.ManyToManyField(Prenda, related_name="prendasPedido")
+
     class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
+
+class Categoria(models.Model):
+    categoria = models.CharField(max_length=100)
+    prendas = models.ManyToManyField(Prenda, related_name="prendasCategoria")
+
+    class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
