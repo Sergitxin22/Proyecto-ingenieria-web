@@ -12,16 +12,11 @@
             Categorías
           </a>
            <ul class="dropdown-menu">
-            <!--
-            <li *ngFor="let categoria of categorias">
-              <a class="dropdown-item" [routerLink]="['/productos/categoria', categoria?.CategoriaId]">
-                {{ categoria?.Nombre }}</a
-              >
-            </li> -->
             {% for categoria in categorias %}
+            <li>
                 <a class="dropdown-item" [routerLink]="['/productos/categoria', categoria?.CategoriaId]">
-                {{ categoria.categoria }}</a
-                >
+                {{ categoria.categoria }}</a>
+                </li>
             {% endfor %}
           </ul>
         </li>
