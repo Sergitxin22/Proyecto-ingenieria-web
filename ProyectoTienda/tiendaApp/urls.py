@@ -2,13 +2,13 @@ from django.urls import path
 from .import views
 
 urlpatterns=[
-    path('', views.index, name='listaTienda'),
-    path('prendas/', views.lista_prendas, name='lista_prendas'),
-    path('pedidos/', views.lista_pedidos, name='lista_pedidos'),
-    path('clientes/', views.lista_clientes, name='lista_clientes'),
-    path('categorias/', views.lista_categorias, name='lista_categorias'),
-    path('prendas/<int:pk>/', views.detalles_prenda, name='detalles_prenda'),
-    path('pedidos/<int:pk>/', views.detalles_pedido, name='detalles_pedido'),
-    path('clientes/<int:pk>/', views.detalles_cliente, name='detalles_cliente'),
-    path('categorias/<int:pk>/', views.detalles_categoria, name='detalles_categoria'),
+    path('', views.base, name='index'),
+    path('prendas/', views.PrendaListView.as_view(), name='lista_prendas'),
+    path('pedidos/', views.PedidoListView.as_view(), name='lista_pedidos'),
+    path('clientes/', views.ClienteListView.as_view(), name='lista_clientes'),
+    path('categorias/', views.CategoriaListView.as_view(), name='lista_categorias'),
+    path('prendas/<int:pk>/', views.PrendaDetailView.as_view(), name='detalles_prenda'),
+    path('pedidos/<int:pk>/', views.PedidoDetailView.as_view(), name='detalles_pedido'),
+    path('clientes/<int:pk>/', views.ClienteDetailView.as_view(), name='detalles_cliente'),
+    path('categorias/<int:pk>/', views.CategoriaDetailView.as_view(), name='detalles_categoria'),
 ]

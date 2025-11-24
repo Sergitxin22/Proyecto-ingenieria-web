@@ -15,6 +15,16 @@ class Cliente(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Categoria(models.Model):
+    categoria = models.CharField(max_length=100)
+    
+    class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
+    def __str__(self):
+        return self.categoria
 
 class Prenda(models.Model):
     nombre = models.CharField(max_length=100)
@@ -22,6 +32,8 @@ class Prenda(models.Model):
     talla = models.CharField(max_length=100)
     precio = models.CharField(max_length=100)
     foto = models.URLField(max_length=200, blank=True, null=True)
+    categorias = models.ManyToManyField(Categoria, related_name="categoriasPrenda")
+
 
     class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
         verbose_name = "Prenda"
@@ -32,18 +44,10 @@ class Prenda(models.Model):
 
 class Pedido(models.Model):
     precio = models.CharField(max_length=100, blank=True)
-    fecha = models.DateField(max_length=100)
+    fecha = models.DateField(auto_now_add=True, null=True)
     cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE, related_name='usuarioPedido')
     prendas = models.ManyToManyField(Prenda, related_name="prendasPedido")
 
     class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
-
-class Categoria(models.Model):
-    categoria = models.CharField(max_length=100)
-    prendas = models.ManyToManyField(Prenda, related_name="prendasCategoria")
-
-    class Meta: #Para visualizat el nombre en singular y plural del modelo en ADMIN
-        verbose_name = "Categoria"
-        verbose_name_plural = "Categorias"
