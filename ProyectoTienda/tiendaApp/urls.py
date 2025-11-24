@@ -10,5 +10,5 @@ urlpatterns=[
     path('prendas/<int:pk>/', views.detalles_prenda, name='detalles_prenda'),
     path('pedidos/<int:pk>/', views.detalles_pedido, name='detalles_pedido'),
     path('clientes/<int:pk>/', views.detalles_cliente, name='detalles_cliente'),
-    path('categorias/<int:pk/', views.detalles_categoria, name='detalles_categoria'),
+    path('categorias/<int:pk>/', views.detalles_categoria, name='detalles_categoria'),
 ]
