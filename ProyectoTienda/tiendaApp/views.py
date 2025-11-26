@@ -3,11 +3,8 @@ from .models import Cliente, Prenda, Pedido, Categoria
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
-def index(request):
-    return render(request,'index.html')
-
 def base(request):
-    return render(request,'base.html')
+    return render(request,'pages/home.html')
 # # Create your views here.
 
 # def lista_prendas(request):

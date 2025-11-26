@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+{%block content%}
+<style>
+    .carousel-item > * {
+    height: 100vh;
+}
+
+.carousel-item {
+    width: 100%;
+    overflow: hidden;
+}
+
+section {
+    height: 100vh;
+    /* background-color: aqua; */
+}
+
+.overlay-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0, 0, 0, 0.5);  Color y opacidad del fondo */
+  }
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.content {
+    position: absolute;
+    color: black;
+}
+
+.car-1 {
+    top: 50%;
+    left: 20%;
+    transform: translate(-20%, -50%);
+}
+
+.img-car-1 {
+    width: 100%;
+    height: auto;
+}
+
+.car-2 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.car-3 {
+    top: 50%;
+    left: 80%;
+    transform: translate(-80%, -50%);
+}
+
+@media screen and (max-width: 900) {
+    .img-car-1 {
+        object-position: left;
+    }
+  }
+  
+  /* Estilos para pantallas medianas y grandes (por ejemplo, tabletas y escritorios) */
+  @media screen and (min-width: 768px) {
+    /* Estilos específicos para pantallas con un ancho mínimo de 768px */
+  }
+  
+  /* Estilos para pantallas grandes (por ejemplo, pantallas de escritorio) */
+  @media screen and (min-width: 1024px) {
+    /* Estilos específicos para pantallas con un ancho mínimo de 1024px */
+  }
+
+.categorias {
+    background-color: #f8f9fa;
+}
+
+.categorias img {
+    height: 85vh;
+    transition: filter 0.3s ease;
+    transition: transform 0.3s ease;
+    transform-origin: center center; /* Centra el punto de transformación */
+    width: 100%; /* Ajusta el tamaño de la imagen al 100% del contenedor */
+}
+
+.tarjeta {
+    font-size: 4rem;
+    overflow: hidden;
+}
+
+.tarjeta:hover img {
+    transform: scale(1.02); /* Valor de zoom al hacer hover */
+  }
+  
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0); /* Color y opacidad del fondo */
+    transition: background-color 0.3s ease;
+  }
+  
+.tarjeta:hover .overlay {
+    background-color: rgba(255, 255, 255, 0.2); /* Color y opacidad del fondo al hacer hover */
+}
+
+.products-selection {
+    max-width: 87vw;
+}
+
+/*  */
+
+.tarjeta-producto {
+    margin-top: 25px;
+    position: relative;
+    font-size: 1rem;
+    overflow: hidden;
+  }
+  
+  .tarjeta-producto > div {
+    position: absolute;
+    bottom: -12%; /* Posición inicial debajo del contenedor */
+    left: 0;
+    width: 100%;
+    height: 12%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    transition: bottom 0.3s ease; /* Animación de aparición */
+  }
+  
+  .tarjeta-producto:hover > div {
+    bottom: 0%; /* Muestra el div al subir hasta la posición deseada */
+  }
+  
+  .tarjeta-producto > div span {
+    display: block;
+  }
+</style>
+
+<section
+  id="carouselExampleInterval"
+  class="carousel slide"
+  data-interval="5000"
+  data-bs-ride="carousel"
+  data-bs-theme="dark">
+  <div class="carousel-indicators">
+    <button
+      type="button"
+      data-bs-target="#carouselExampleInterval"
+      data-bs-slide-to="0"
+      class="active"
+      aria-current="true"
+      aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="position-relative">
+        <div class="image-container">
+          <img
+            class="bd-placeholder-img bd-placeholder-img-lg d-block h-100 img-car-1"
+            src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/photo/home-1-plain.jpg"
+            aria-label="Placeholder: First slide"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false" />
+        </div>
+        <div class="overlay-carousel"></div>
+        <div class="content car-1">
+          <p class="subtitle letter-spacing-3 mb-3 text-dark font-weight-light">Our all-time favourites</p>
+          <h2 class="display-1 mb-3" style="line-height: 1">Blouses &amp; Tops</h2>
+          <p class="text-muted mb-5">
+            The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit
+          </p>
+          <a class="btn btn-dark" href="#">Discover more</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative">
+        <img
+          class="bd-placeholder-img bd-placeholder-img-lg d-block h-100"
+          src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/photo/home-2-plain.jpg"
+          aria-label="Placeholder: Second slide"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false" />
+        <div class="overlay-carousel"></div>
+        <div class="content car-2 text-center">
+          <p class="subtitle letter-spacing-3 mb-3 text-dark font-weight-light">Blue &amp; White</p>
+          <h2 class="display-1 mb-3" style="line-height: 1">Linen and denim</h2>
+          <a class="btn btn-dark" href="#">Start shopping</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="position-relative">
+        <img
+          class="bd-placeholder-img bd-placeholder-img-lg d-block h-100"
+          src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/photo/home-3-plain.jpg"
+          aria-label="Placeholder: Third slide"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false" />
+        <div class="overlay-carousel"></div>
+        <div class="content car-3">
+          <p class="subtitle letter-spacing-3 mb-3 text-primary font-weight-light mb-4">Sneakers</p>
+          <h2 class="display-1 mb-5" style="line-height: 1">For every occassion</h2>
+          <a class="btn btn-dark" href="#">Start shopping</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev d-none d-lg-block"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next d-none d-lg-block"
+    type="button"
+    data-bs-target="#carouselExampleInterval"
+    data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</section>
+
+<section class="d-flex justify-content-center align-items-center categorias gap-4">
+  <div class="position-relative tarjeta">
+    <img src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/product/category-women.jpg" alt="" />
+    <span class="position-absolute top-50 start-50 translate-middle text-white fw-bold">Women</span>
+    <div class="overlay"></div>
+    <a href="google.es" class="stretched-link"></a>
+  </div>
+  <div class="position-relative tarjeta">
+    <img src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/product/category-men.jpg" alt="" />
+    <span class="position-absolute top-50 start-50 translate-middle text-white fw-bold">Men</span>
+    <div class="overlay"></div>
+    <a href="google.es" class="stretched-link"></a>
+  </div>
+</section>
+{%endblock%}
