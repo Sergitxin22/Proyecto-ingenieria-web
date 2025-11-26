@@ -14,7 +14,7 @@
           <ul class="dropdown-menu">
             {% for categoria in categorias %}
             <li>
-              <a class="dropdown-item" [routerLink]="['/productos/categoria', categoria?.CategoriaId]">
+              <a class="dropdown-item" href="{% url 'detalles_categoria' categoria.id %}">
                 {{ categoria.categoria }}</a>
             </li>
             {% endfor %}
