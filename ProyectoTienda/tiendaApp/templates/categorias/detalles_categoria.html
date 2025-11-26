@@ -1,0 +1,13 @@
+{%extends 'base.html'%}
+{%block content%}
+
+<h2>Prendas de la categoría {{ categoria.categoria }}</h2>
+
+<ul>
+    {% for prenda in categoria.categoriasPrenda.all %}
+        <li>{{ prenda.nombre }} - {{ prenda.precio }}</li>
+    {% empty %}
+        <li>No hay prendas en esta categoría</li>
+    {% endfor %}
+</ul>
+{%endblock%}

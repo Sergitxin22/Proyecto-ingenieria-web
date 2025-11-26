@@ -1,0 +1,7 @@
+{%extends 'base.html'%}
+{%block content%}
+{%for categoria in categorias%}
+{{categoria.categoria}}
+<a href="{% url 'detalles_categoria' categoria.id %}">click aqui</a>
+{%endfor%}
+{%endblock%}
