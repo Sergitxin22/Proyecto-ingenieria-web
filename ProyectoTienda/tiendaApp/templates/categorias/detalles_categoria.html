@@ -2,44 +2,42 @@
 {%block title %} Productos de {{categoria.categoria}}{% endblock%}
 {%block content%}
 <style>
-    .margen {
+  .margen {
     margin-top: 100px;
-}
+  }
 
-.tarjeta-producto {
+  .tarjeta-producto {
     margin-top: 25px;
     position: relative;
     font-size: 1rem;
     overflow: hidden;
   }
-  
-  .tarjeta-producto > div {
+
+  .tarjeta-producto>div {
     position: absolute;
-    bottom: -12%; /* Posición inicial debajo del contenedor */
+    bottom: -12%;
     left: 0;
     width: 100%;
     height: 12%;
     text-align: center;
     color: #48192E;
     font-weight: normal;
-    font-size: 5px;
-    transition: bottom 0.3s ease; /* Animación de aparición */
+    transition: bottom 0.3s ease;
   }
-  
-  .tarjeta-producto:hover > div {
-    bottom: 0%; /* Muestra el div al subir hasta la posición deseada */
-  }
-  
-  .tarjeta-producto > div span {
-    display: block;
+
+  .tarjeta-producto:hover>div {
+    bottom: 0%;
   }
 
   .footer-producto {
     background-color: #C59C79;
   }
 
-  .overlay{
+  .nombre-prenda {
+    font-size: 1rem;
+    margin: 0;
     text-align: center;
+    width: 100%;
   }
 </style>
 
@@ -47,29 +45,25 @@
   <section>
     <div class="row justify-content-left align-items-center px-0">
       <h1 class="margen"> Categoría {{ categoria.categoria }}</h1>
-      {% for prenda in categoria.categoriasPrenda.all %}
 
+      {% for prenda in categoria.categoriasPrenda.all %}
       <div class="col-6 col-md-4 col-lg-2">
-        <div
-          class="position-relative tarjeta-producto"
+        <div class="position-relative tarjeta-producto"
           style="overflow: hidden; display: block; max-width: 100%; height: auto">
-          <img
-            src="{{prenda.foto}}"
-            alt="foto prenda"
-            class="img-fluid"
-            style="object-fit: cover; aspect-ratio: 9/12"
-            width="100%" />
+
+          <img src="{{ prenda.fotos.all.0.url }}" alt="foto prenda" class="img-fluid"
+            style="object-fit: cover; aspect-ratio: 9/12" width="100%" />
+
           <div
-            class="position-absolute text-black  d-flex justify-content-between align-items-center px-3 footer-producto">
-            <h1>{{ prenda.nombre }} </h1>
-            <!-- <span>Texto 2</span> -->
+            class="position-absolute text-black d-flex justify-content-center align-items-center px-3 footer-producto">
+            <p class="nombre-prenda">{{ prenda.nombre }}</p>
           </div>
 
           <div class="overlay"></div>
-          <a href="{% url 'detalles_prenda' prenda.id%}" class="stretched-link"></a>
+          <a href="{% url 'detalles_prenda' prenda.id %}" class="stretched-link"></a>
         </div>
       </div>
-      {%endfor%} 
+      {% endfor %}
     </div>
   </section>
 </main>
