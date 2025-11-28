@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponseRedirect, reverse
+from django.shortcuts import render
+from django.http import JsonResponse
 from .models import Cliente, Prenda, Pedido, Categoria
 from django.views.generic import ListView, DetailView
 from .forms import AddToCartForm
@@ -26,6 +27,9 @@ class PrendaDetailView(DetailView):
         prenda = self.get_object()
         form = AddToCartForm(request.POST, prenda=prenda)
 
+        cleaned_payload = form.data.copy()
+        cleaned_payload.pop("csrfmiddlewaretoken", None)
+
         if form.is_valid():
             variante = form.cleaned_data["variante"]
             cantidad = form.cleaned_data["cantidad"]
@@ -33,17 +37,27 @@ class PrendaDetailView(DetailView):
             # Aquí va la lógica real del carrito.
             print("Añadir al carrito:", variante, cantidad)
 
-            # Redirigir a la misma página (recarga con GET)
-            return HttpResponseRedirect(
-                reverse("prenda_detalles", kwargs={"pk": prenda.pk})
+            return JsonResponse(
+                {
+                    "mensaje": "Formulario recibido",
+                    "peticion": cleaned_payload,
+                    "datos_normalizados": {
+                        "variante_id": variante.pk,
+                        "variante": str(variante),
+                        "cantidad": cantidad,
+                    },
+                }
             )
 
         # Si el form NO es válido, recargar con errores
-        context = {
-            "prenda": prenda,
-            "form": form
-        }
-        return render(request, self.template_name, context)
+        return JsonResponse(
+            {
+                "mensaje": "Formulario inválido",
+                "peticion": cleaned_payload,
+                "errores": form.errors,
+            },
+            status=400,
+        )
     
 class PedidoListView(ListView):
     model = Pedido
