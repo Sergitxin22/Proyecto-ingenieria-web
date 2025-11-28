@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from .models import Cliente, Prenda, Pedido, Categoria
-from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
+from .forms import AddToCartForm
 
 def base(request):
     return render(request,'pages/home.html')
@@ -15,6 +15,35 @@ class PrendaDetailView(DetailView):
     model = Prenda
     context_object_name = "prenda"
     template_name = "prendas/detalles_prenda.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        prenda = self.get_object()
+        context["form"] = AddToCartForm(prenda=prenda)
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        prenda = self.get_object()
+        form = AddToCartForm(request.POST, prenda=prenda)
+
+        if form.is_valid():
+            variante = form.cleaned_data["variante"]
+            cantidad = form.cleaned_data["cantidad"]
+
+            # Aquí va la lógica real del carrito.
+            print("Añadir al carrito:", variante, cantidad)
+
+            # Redirigir a la misma página (recarga con GET)
+            return HttpResponseRedirect(
+                reverse("prenda_detalles", kwargs={"pk": prenda.pk})
+            )
+
+        # Si el form NO es válido, recargar con errores
+        context = {
+            "prenda": prenda,
+            "form": form
+        }
+        return render(request, self.template_name, context)
     
 class PedidoListView(ListView):
     model = Pedido

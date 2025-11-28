@@ -1,150 +1,125 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
-{% block title %} Detalles de {{prenda.nombre}}{%endblock%}
+{% block title %}Detalles de {{ prenda.nombre }}{% endblock %}
+
 {% block content %}
 <style>
     .carousel-item .img-fluid {
-    max-height: 50vh !important; /* Ajusta el porcentaje deseado según tus necesidades */
-    max-width: 50vh;
-    object-fit: cover;
+        max-height: 50vh !important;
+        max-width: 50vh;
+        object-fit: cover;
     }
-
-    section{
-    margin-top: 100px;
+    section {
+        margin-top: 100px;
     }
 </style>
-<main class="container">
-  <div class="row">
-    <div class="col-12 col-lg-6">
-      <div class="row">
-        <section id="carouselExampleCaptions" class="carousel slide" data-bs-theme="dark" data-bs-interval="false">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                class="bd-placeholder-img bd-placeholder-img-lg d-block w-100 h-100"
-                [src]="primeraFoto?.ImagenUrl"
-                aria-label="Placeholder: First slide"
-                preserveAspectRatio="xMidYMid slice"
-                focusable="false"
-                style="object-fit: contain; aspect-ratio: 1" />
-            </div>
-            <div class="carousel-item" *ngFor="let foto of otrasFotos">
-              <img
-                class="bd-placeholder-img bd-placeholder-img-lg d-block w-100 h-100"
-                [src]="foto?.ImagenUrl"
-                aria-label="Placeholder: First slide"
-                preserveAspectRatio="xMidYMid slice"
-                focusable="false"
-                style="object-fit: contain; aspect-ratio: 1" />
-            </div>
-          </div>
-          <button
-            *ngIf="numFotos > 1"
-            class="carousel-control-prev h-100"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button
-            *ngIf="numFotos > 1"
-            class="carousel-control-next h-100"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </section>
-      </div>
-      <div class="row d-none d-lg-block" *ngIf="numFotos > 1">
-        <div class="mt-2">
-          <div class="d-flex">
-            <img
-              *ngFor="let foto of producto.Fotos; let i = index"
-              [src]="foto?.ImagenUrl"
-              alt="Indicador {{ i + 1 }}"
-              data-bs-target="#carouselExampleCaptions"
-              [attr.data-bs-slide-to]="i"
-              [class.active]="i === 0"
-              class="me-2"
-              style="width: 100px; height: 100px; object-fit: contain; background-color: #e4e4e441" />
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <section class="col-12 col-lg-6">
-      <h1 class="mb-4">{{ producto?.Nombre }}</h1>
-      <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-lg-between mb-4">
-        <ul class="list-inline mb-2 mb-lg-0">
-          <li class="list-inline-item h4 fw-light mb-0">{{ producto?.Precio }}€</li>
-          <li class="list-inline-item text-muted fw-light" *ngIf="producto?.Oferta">
-            <del>{{ producto?.PrecioAnterior }}€</del>
-          </li>
-        </ul>
-      </div>
-      <p class="mb-4 text-muted">
-        Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an
-        illustrated magazine and housed in a nice, gilded frame.
-      </p>
-      <form [formGroup]="formularioAnadirProducto" (submit)="onSubmit()">
-        <div class="row">
-          <div class="col-lg-6 col-lg-12 detail-option mb-4">
-            <h6 class="detail-option-heading">Talla / Tipo <span>(*)</span></h6>
-            <select
-              class="selectpicker"
-              name="size"
-              data-style="btn-selectpicker"
-              formControlName="Id"
-              (change)="onVarianteSeleccionada($event)">
-              <option [value]="variante.Id" *ngFor="let variante of producto?.Variantes">
-                {{ variante?.Descripcion }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <div class="input-group w-100 mb-4">
-          <input
-            class="form-control form-control-lg detail-quantity"
-            name="items"
-            type="number"
-            value="1"
-            formControlName="Stock"
-            min="1"
-            [max]="selectedVariante?.Stock" />
-          <div class="flex-grow-1">
-            <div class="d-grid h-100">
-              <button class="btn btn-dark" type="submit">
-                <i class="fa fa-shopping-cart me-2"></i>Añadir al carrito
-              </button>
+<main class="container">
+    <div class="row">
+        <!-- IMÁGENES -->
+        <div class="col-12 col-lg-6">
+            <div class="row">
+                <section id="carouselExampleCaptions" class="carousel slide" data-bs-theme="dark" data-bs-interval="false">
+                    <div class="carousel-inner">
+
+                        <!-- PRIMERA FOTO COMO ACTIVE -->
+                        {% if prenda.fotos.all %}
+                        <div class="carousel-item active">
+                            <img
+                                class="bd-placeholder-img bd-placeholder-img-lg d-block w-100 h-100"
+                                src="{{ prenda.fotos.all.0.url }}"
+                                style="object-fit: contain; aspect-ratio: 1;" />
+                        </div>
+                        {% endif %}
+
+                        <!-- RESTO DE FOTOS -->
+                        {% for foto in prenda.fotos.all %}
+                            {% if foto != prenda.fotos.all.0 %}
+                                <div class="carousel-item">
+                                    <img
+                                        class="bd-placeholder-img bd-placeholder-img-lg d-block w-100 h-100"
+                                        src="{{ foto.url }}"
+                                        style="object-fit: contain; aspect-ratio: 1;" />
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- CONTROLES SOLO SI HAY +1 FOTO -->
+                    {% if prenda.fotos.all.count > 1 %}
+                    <button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                    {% endif %}
+                </section>
             </div>
-          </div>
+
+            <!-- MINIATURAS -->
+            {% if prenda.fotos.all.count > 1 %}
+            <div class="row d-none d-lg-block">
+                <div class="mt-2">
+                    <div class="d-flex">
+                        {% for foto in prenda.fotos.all %}
+                            <img src="{{ foto.url }}" class="me-2"
+                                style="width: 100px; height: 100px; object-fit: contain; background-color: #e4e4e441;" />
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
         </div>
-        <div class="row mb-4">
-          <div class="col-6 text-end">
-            <ul class="list-inli ne mb-0">
-              <li class="list-inline-item me-2">
-                <a class="text-dark text-primary-hover" href="#"><i class="fab fa-facebook-f"> </i></a>
-              </li>
-              <li class="list-inline-item">
-                <a class="text-dark text-primary-hover" href="#"><i class="fab fa-twitter"> </i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div [innerHTML]="producto?.Descripcion" class="mt-3"></div>
-      </form>
-    </section>
-  </div>
+
+        <!-- DETALLES + FORMULARIO -->
+        <section class="col-12 col-lg-6">
+            <h1 class="mb-4">{{ prenda.nombre }}</h1>
+
+            <p class="mb-4 text-muted">
+                {{ prenda.descripcion }}
+            </p>
+
+            <!-- FORMULARIO DJANGO REAL -->
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="row">
+                    <div class="col-lg-6 col-lg-12 detail-option mb-4">
+                        <h6 class="detail-option-heading">Talla / Tipo <span>(*)</span></h6>
+                        {{ form.variante }}
+                    </div>
+                </div>
+
+                <div class="input-group w-100 mb-4">
+                    {{ form.cantidad }}
+
+                    <div class="flex-grow-1">
+                        <div class="d-grid h-100">
+                            <button class="btn btn-dark" type="submit">
+                                <i class="fa fa-shopping-cart me-2"></i>
+                                Añadir al carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row mb-4">
+                <div class="col-6 text-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-2">
+                            <a class="text-dark text-primary-hover" href="#"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a class="text-dark text-primary-hover" href="#"><i class="fab fa-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+    </div>
 </main>
 
-<!-- <h1>{{prenda.nombre}}</h1>
-<p><strong>Descripcion: </strong>{{ prenda.descripcion}}</p>
-<p><strong>Talla: </strong>{{ prenda.talla}}</p>
-<p><strong>Precio: </strong>{{ prenda.precio}} €</p>
-<img src="{{prenda.logo}}" alt="Imagen de la prenda" width="100px"> 
-<p> <strong> Foto:</strong> <br><img src="{{prenda.foto}}" alt="imagen de la prenda" width="300px"></p>
- -->
 {% endblock %}
