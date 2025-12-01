@@ -23,15 +23,23 @@
       </ul>
 
       <div class="text-end">
-        <button type="button" class="btn btn-outline-dark me-2" [routerLink]="['/login']" *ngIf="!estoyLogeado">
-          Iniciar Sesión
-        </button>
-        <button type="button" class="btn btn-warning me-2" [routerLink]="['/sign-up']" *ngIf="!estoyLogeado">
-          Registrarse
-        </button>
-        <button type="button" class="btn btn-warning me-2" [routerLink]="['/mi-perfil']" *ngIf="estoyLogeado">
-          <i class="fa-solid fa-user"></i>
-        </button>
+
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}" class="btn btn-outline-dark me-2">
+            Iniciar Sesión
+        </a>
+
+        <a href="{% url 'signup' %}" class="btn btn-warning me-2">
+            Registrarse
+        </a>
+        {% endif %}
+
+        <!-- {% if user.is_authenticated %}
+        <a href="{% url 'ver_pedidos' %}" class="btn btn-warning me-2">
+            <i class="fa-solid fa-user"></i>
+        </a>
+        {% endif %} -->
+
         <a href="{% url 'ver_carrito' %}" class="btn btn-warning position-relative">
           <i class="fa-solid fa-cart-shopping"></i>
           {% if carrito_total_items > 0 %}
