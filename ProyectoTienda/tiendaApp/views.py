@@ -4,12 +4,34 @@ from django.contrib import messages
 from django.views import View
 from .models import Cliente, Prenda, Pedido, Categoria, VariantePrenda, ItemPedido
 from django.views.generic import ListView, DetailView
-from .forms import AddToCartForm
+from .forms import AddToCartForm,LoginForm
 from .carrito import Carrito
 from decimal import Decimal
 
 def base(request):
     return render(request,'pages/home.html')
+
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            email = form.cleaned_data["nombreUsuario"]
+            password = form.cleaned_data["password"]
+
+            # Si tus clientes NO son usuarios del sistema User:
+            try:
+                cliente = Cliente.objects.get(email=email, password=password)
+                request.session["cliente_id"] = cliente.id
+                messages.success(request, f"Bienvenido {cliente.nombre}")
+                return redirect("lista_prendas")
+            except Cliente.DoesNotExist:
+                messages.error(request, "Email o contraseña incorrectos.")
+
+    return render(request, "pages/login.html", {"form": form})
+   
+
 
 class PrendaListView(ListView):
     model = Prenda
@@ -44,6 +66,7 @@ class PrendaDetailView(DetailView):
             messages.error(request, 'Error al agregar al carrito. Por favor, verifica los datos.')
         
         return redirect('detalles_prenda', pk=prenda.pk)
+
     
 class PedidoListView(ListView):
     model = Pedido

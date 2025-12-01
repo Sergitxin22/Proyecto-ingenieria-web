@@ -17,3 +17,11 @@ class AddToCartForm(forms.Form):
         super().__init__(*args, **kwargs)
         if prenda:
             self.fields["variante"].queryset = prenda.variantes.all()
+
+class LoginForm(forms.Form):
+    nombreUsuario = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Usuario'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña'})
+    )
