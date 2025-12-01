@@ -11,7 +11,7 @@ urlpatterns=[
     path('pedidos/<int:pk>/', views.PedidoDetailView.as_view(), name='detalles_pedido'),
     path('clientes/<int:pk>/', views.ClienteDetailView.as_view(), name='detalles_cliente'),
     path('categorias/<int:pk>/', views.CategoriaDetailView.as_view(), name='detalles_categoria'),
-    
+    path('login/',views.login_view,name='login'),
     # URLs del carrito
     path('carrito/', views.CarritoView.as_view(), name='ver_carrito'),
     path('carrito/agregar/<int:variante_id>/', views.AgregarAlCarritoView.as_view(), name='agregar_al_carrito'),
