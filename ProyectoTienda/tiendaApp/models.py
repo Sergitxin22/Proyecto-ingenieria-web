@@ -53,14 +53,49 @@ class VariantePrenda(models.Model):
         return f"{self.prenda.nombre} - {self.descripcion}"
 
 class Pedido(models.Model):
-    precio = models.CharField(max_length=100, blank=True)
+    ESTADO_CHOICES = [
+        ('carrito', 'Carrito'),
+        ('pendiente', 'Pendiente'),
+        ('procesado', 'Procesado'),
+        ('enviado', 'Enviado'),
+        ('entregado', 'Entregado'),
+        ('cancelado', 'Cancelado'),
+    ]
+    
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     fecha = models.DateField(auto_now_add=True, null=True)
-    cliente = models.ForeignKey(Cliente, on_delete= models.CASCADE, related_name='usuarioPedido')
-    prendas = models.ManyToManyField(Prenda, related_name="prendasPedido")
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)
+    estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='carrito')
 
-    class Meta: #Para visualizar el nombre en singular y plural del modelo en ADMIN
+    class Meta:
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"
+
+    def __str__(self):
+        return f"Pedido {self.id} - {self.estado}"
+
+    def calcular_total(self):
+        total = sum(item.subtotal() for item in self.items.all())
+        self.precio_total = total
+        self.save()
+        return total
+
+class ItemPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='items')
+    variante = models.ForeignKey(VariantePrenda, on_delete=models.CASCADE, related_name='items_pedido')
+    cantidad = models.PositiveIntegerField(default=1)
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Item de Pedido"
+        verbose_name_plural = "Items de Pedido"
+        unique_together = ('pedido', 'variante')
+
+    def __str__(self):
+        return f"{self.cantidad}x {self.variante}"
+
+    def subtotal(self):
+        return self.cantidad * self.precio_unitario
 
 class FotoPrenda(models.Model):
     prenda = models.ForeignKey(Prenda, on_delete=models.CASCADE, related_name="fotos")
