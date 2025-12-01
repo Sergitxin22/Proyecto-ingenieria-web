@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{%block title %} Registro {% endblock%}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card login-form p-4">
+    <p class="h2">Crear cuenta</p>
+    <p>Crea una cuenta para ver el proceso de tus pedidos. <br />También podrás acceder a descuentos exclusivos.</p>
+
+    <form method="POST" class="mt-2">
+      {% csrf_token %}
+
+      <div class="form-floating">
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          class="form-control {% if form.nombre.errors %}is-invalid{% endif %}"
+          placeholder="Nombre"
+          value="{{ form.nombre.value|default:'' }}"
+        />
+        <label for="nombre">Nombre</label>
+
+        {% for error in form.nombre.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="form-floating mt-4">
+        <input
+          type="text"
+          id="apellido"
+          name="apellido"
+          class="form-control {% if form.apellido.errors %}is-invalid{% endif %}"
+          placeholder="Apellido"
+          value="{{ form.apellido.value|default:'' }}"
+        />
+        <label for="apellido">Apellido</label>
+
+        {% for error in form.apellido.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="form-floating mt-4">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+          placeholder="name@example.com"
+          value="{{ form.email.value|default:'' }}"
+        />
+        <label for="email">Email</label>
+
+        {% for error in form.email.errors %}
+          <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+      </div>
+
+      <div class="input-group mt-4">
+        <div class="form-floating flex-grow-1">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+            placeholder="Contraseña"
+          />
+          <label for="password">Contraseña</label>
+        </div>
+      </div>
+
+      {% for error in form.password.errors %}
+        <div class="text-danger">{{ error }}</div>
+      {% endfor %}
+
+      <div class="mt-2">
+        <a href="{% url 'login' %}">¿Ya tienes una cuenta?</a>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-4">
+        Crear Cuenta
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
