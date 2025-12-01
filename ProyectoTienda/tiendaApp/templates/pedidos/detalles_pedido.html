@@ -1,13 +1,75 @@
 {% extends 'base.html'%}
 
 {% block content %}
-<h1>Pedido {{Pedido.id}}</h1>
-<p><strong>Cliente: </strong><a href="{% url 'detalles_cliente' Pedido.cliente.id %}">{{Pedido.cliente.nombre}}</a></p>
-<p><strong>Prendas: </strong></p>
-{% for prenda in Pedido.prendas.all %}
-<li>{{ prenda }} | <a href="{% url 'detalles_prenda' prenda.id %}">Ir a detalles de la prenda</a></li>
-{% endfor %}
-<p><strong>Precio: </strong>{{Pedido.precio| default:"0"}} €</p>
+<div class="container mt-5">
+    <h1>Detalles del Pedido #{{pedido.id}}</h1>
 
-<a href="{% url 'lista_pedidos' %}">Volver al listado de pedidos</a>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Información del Pedido</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Estado: </strong>
+                <span
+                    class="badge bg-{% if pedido.estado == 'entregado' %}success{% elif pedido.estado == 'cancelado' %}danger{% else %}primary{% endif %}">
+                    {{ pedido.get_estado_display }}
+                </span>
+            </p>
+            <p><strong>Fecha: </strong>{{pedido.fecha}}</p>
+            {% if pedido.cliente %}
+            <p><strong>Cliente: </strong>
+                <a href="{% url 'detalles_cliente' pedido.cliente.id %}">{{pedido.cliente.nombre}}
+                    {{pedido.cliente.apellido}}</a>
+            </p>
+            {% else %}
+            <p><strong>Cliente: </strong>Invitado</p>
+            {% endif %}
+            <p><strong>Precio Total: </strong>${{pedido.precio_total}}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Artículos del Pedido</h5>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Prenda</th>
+                        <th>Variante</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in pedido.items.all %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'detalles_prenda' item.variante.prenda.id %}">
+                                {{ item.variante.prenda.nombre }}
+                            </a>
+                        </td>
+                        <td>{{ item.variante.descripcion }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>${{ item.precio_unitario }}</td>
+                        <td>${{ item.subtotal }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4" class="text-end">Total:</th>
+                        <th>${{ pedido.precio_total }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a href="{% url 'lista_pedidos' %}" class="btn btn-secondary">Volver al listado de pedidos</a>
+    </div>
+</div>
 {% endblock %}

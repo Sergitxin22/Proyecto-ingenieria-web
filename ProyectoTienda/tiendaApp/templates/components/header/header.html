@@ -32,9 +32,14 @@
         <button type="button" class="btn btn-warning me-2" [routerLink]="['/mi-perfil']" *ngIf="estoyLogeado">
           <i class="fa-solid fa-user"></i>
         </button>
-        <button type="button" class="btn btn-warning" [routerLink]="['/carrito']">
+        <a href="{% url 'ver_carrito' %}" class="btn btn-warning position-relative">
           <i class="fa-solid fa-cart-shopping"></i>
-        </button>
+          {% if carrito_total_items > 0 %}
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ carrito_total_items }}
+          </span>
+          {% endif %}
+        </a>
       </div>
     </div>
   </div>
