@@ -30,7 +30,25 @@ def login_view(request):
                 messages.error(request, "Email o contraseña incorrectos.")
 
     return render(request, "pages/login.html", {"form": form})
-   
+
+def signup_view(request):
+    from .forms import RegistroForm
+
+    form = RegistroForm(request.POST or None)
+
+    if request.method == "POST":
+        if form.is_valid():
+            Cliente.objects.create(
+              nombre=form.cleaned_data["nombre"],
+              apellido=form.cleaned_data["apellido"],
+              email=form.cleaned_data["email"],
+              password=form.cleaned_data["password"],  # Uso simple, sin hashing
+            )
+
+            messages.success(request, "Cuenta creada correctamente.")
+            return redirect("login")
+
+    return render(request, "pages/signUp.html", {"form": form})
 
 
 class PrendaListView(ListView):
