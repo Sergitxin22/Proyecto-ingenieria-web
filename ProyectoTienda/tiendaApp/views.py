@@ -25,7 +25,7 @@ def login_view(request):
                 cliente = Cliente.objects.get(email=email, password=password)
                 request.session["cliente_id"] = cliente.id
                 messages.success(request, f"Bienvenido {cliente.nombre}")
-                return redirect("lista_prendas")
+                return redirect("home")
             except Cliente.DoesNotExist:
                 messages.error(request, "Email o contraseña incorrectos.")
 
