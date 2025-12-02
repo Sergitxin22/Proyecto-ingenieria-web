@@ -1,11 +1,8 @@
 {% extends 'base.html'%}
 
 {%block content %}
-{% for cliente in clientes %}
 
-<a href="{% url 'detalles_cliente' cliente.id %}">
-    <h1>{{ cliente }}</h1>
-</a>
+
 
 <table>
     <tr>
@@ -23,6 +20,6 @@
         <td><img src="{{cliente.foto}}" alt="Imagen del cliente" width="50"></td>
     </tr>
 </table>
-{% endfor %}
-<a href="{% url 'listaTienda' %}">Volver al indice</a>
+
+<a href="{% url 'home' %}">Volver al indice</a>
 {% endblock%}
