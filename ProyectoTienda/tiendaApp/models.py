@@ -7,7 +7,7 @@ class Cliente(models.Model):
     email = models.CharField(max_length=100, unique=True)
     direccion = models.CharField(max_length=100, blank=True, null=True)
     foto = models.URLField(max_length=200, blank=True, null=True)
-    password=models.CharField(max_length=128, blank=True, null=True)
+    password = models.CharField(max_length=100, blank=True, null=True)
     #siempre que añada nuevos campos y ya tengo info en BD, ponemos blank true y null true
 
     class Meta: #Para visualizar el nombre en singular y plural del modelo en ADMIN
@@ -104,3 +104,11 @@ class FotoPrenda(models.Model):
 
     def __str__(self):
         return f"Foto de {self.prenda.nombre}"
+    
+class Sesion(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name="sesion")
+    token = models.CharField(max_length=256)
+    activo= models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"Token {self.token} de {self.cliente.nombre}"

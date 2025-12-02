@@ -64,6 +64,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'tiendaApp.context_processor.categorias_processor',
                 'tiendaApp.context_processor.carrito_processor',
+                'tiendaApp.context_processor.cliente_logueado',
             ],
         },
     },

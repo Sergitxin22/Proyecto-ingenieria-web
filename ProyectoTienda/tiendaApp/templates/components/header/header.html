@@ -24,7 +24,7 @@
 
       <div class="text-end">
 
-        {% if not user.is_authenticated %}
+        
         <a href="{% url 'login' %}" class="btn btn-outline-dark me-2">
             Iniciar Sesión
         </a>
@@ -32,13 +32,11 @@
         <a href="{% url 'signup' %}" class="btn btn-warning me-2">
             Registrarse
         </a>
-        {% endif %}
-
-        <!-- {% if user.is_authenticated %}
-        <a href="{% url 'ver_pedidos' %}" class="btn btn-warning me-2">
+        
+        <a href="{% url 'lista_clientes' %}" class="btn btn-warning me-2">
             <i class="fa-solid fa-user"></i>
         </a>
-        {% endif %} -->
+        
 
         <a href="{% url 'ver_carrito' %}" class="btn btn-warning position-relative">
           <i class="fa-solid fa-cart-shopping"></i>
