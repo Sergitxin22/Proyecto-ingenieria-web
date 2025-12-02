@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from .forms import AddToCartForm,LoginForm
 from .carrito import Carrito
 from decimal import Decimal
+from .auth_utils import crear_sesion_usuario, obtener_cliente_por_token, cerrar_sesion
 
 def base(request):
     return render(request,'pages/home.html')
@@ -23,7 +24,14 @@ def login_view(request):
             # Si tus clientes NO son usuarios del sistema User:
             try:
                 cliente = Cliente.objects.get(email=email, password=password)
+                
+                # Generar token y crear sesión
+                token = crear_sesion_usuario(cliente)
+                
+                # Guardar el token en la sesión de Django
+                request.session["auth_token"] = token
                 request.session["cliente_id"] = cliente.id
+                
                 messages.success(request, f"Bienvenido {cliente.nombre}")
                 return redirect("home")
             except Cliente.DoesNotExist:
@@ -49,6 +57,19 @@ def signup_view(request):
             return redirect("login")
 
     return render(request, "pages/signUp.html", {"form": form})
+
+
+def logout_view(request):
+    """Cierra la sesión del usuario y desactiva su token"""
+    token = request.session.get('auth_token')
+    if token:
+        cerrar_sesion(token)
+    
+    # Limpiar la sesión
+    request.session.flush()
+    
+    messages.success(request, "Sesión cerrada correctamente")
+    return redirect('home')
 
 
 class PrendaListView(ListView):
@@ -160,6 +181,12 @@ class ActualizarCarritoView(View):
 class CheckoutView(View):
     """Vista para procesar el pago y crear el pedido"""
     def get(self, request):
+        # Validar token antes de mostrar checkout
+        cliente = obtener_cliente_por_token(request)
+        if not cliente:
+            messages.error(request, 'Debes iniciar sesión para realizar una compra')
+            return redirect('signup')
+        
         carrito = Carrito(request)
         if len(carrito) == 0:
             messages.warning(request, 'Tu carrito está vacío')
@@ -168,21 +195,19 @@ class CheckoutView(View):
         return render(request, 'carrito/checkout.html', {'carrito': carrito})
     
     def post(self, request):
+        # Validar token antes de procesar la compra
+        cliente = obtener_cliente_por_token(request)
+        if not cliente:
+            messages.error(request, 'Sesión inválida. Por favor, crea una cuenta para continuar')
+            return redirect('signup')
+        
         carrito = Carrito(request)
         
         if len(carrito) == 0:
             messages.error(request, 'No puedes realizar un pedido con un carrito vacío')
             return redirect('lista_prendas')
         
-        # Obtener o crear cliente (simplificado - aquí deberías tener autenticación)
-        cliente_id = request.POST.get('cliente_id')
-        if cliente_id:
-            cliente = get_object_or_404(Cliente, id=cliente_id)
-        else:
-            # Por ahora permitimos pedidos sin cliente (modo invitado)
-            cliente = None
-        
-        # Crear el pedido
+        # Crear el pedido con el cliente autenticado
         pedido = Pedido.objects.create(
             cliente=cliente,
             estado='pendiente',
@@ -205,4 +230,4 @@ class CheckoutView(View):
         carrito.limpiar()
         
         messages.success(request, f'¡Pedido #{pedido.id} realizado con éxito!')
-        return redirect('detalles_pedido', pk=pedido.id)
+        return redirect('home')

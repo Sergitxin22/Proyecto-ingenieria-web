@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Cliente, Prenda, Pedido, Categoria, FotoPrenda, VariantePrenda, ItemPedido
+from .models import Cliente, Prenda, Pedido, Categoria, FotoPrenda, VariantePrenda, ItemPedido, Sesion
 
 # Register your models here.
 admin.site.register(Cliente)
 admin.site.register(Prenda)
+admin.site.register(Sesion)
 
 class ItemPedidoInline(admin.TabularInline):
     model = ItemPedido
