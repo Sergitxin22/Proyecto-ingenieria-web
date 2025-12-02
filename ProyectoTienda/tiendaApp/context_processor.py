@@ -1,5 +1,6 @@
 from .models import Categoria, Cliente
 from .carrito import Carrito
+from .auth_utils import obtener_cliente_por_token
 
 
 def categorias_processor(request):
@@ -17,13 +18,12 @@ def carrito_processor(request):
     }
 
 def cliente_logueado(request):
-    cliente = None
-    cliente_id = request.session.get("cliente_id")
-
-    if cliente_id:
-        try:
-            cliente = Cliente.objects.get(id=cliente_id)
-        except Cliente.DoesNotExist:
-            cliente = None
-
+    """Obtiene el cliente logueado validando su token"""
+    cliente = obtener_cliente_por_token(request)
+    
+    # Si no hay token válido, limpiar la sesión
+    if not cliente:
+        request.session.pop('auth_token', None)
+        request.session.pop('cliente_id', None)
+    
     return {"cliente": cliente}
