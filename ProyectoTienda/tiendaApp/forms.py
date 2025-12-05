@@ -8,7 +8,8 @@ class AddToCartForm(forms.Form):
     )
     cantidad = forms.IntegerField(
         min_value=1,
-        label="Cantidad"
+        label="Cantidad",
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'min': '1'})
     )
 
     # Para pasar las variantes de la prenda
@@ -17,6 +18,23 @@ class AddToCartForm(forms.Form):
         super().__init__(*args, **kwargs)
         if prenda:
             self.fields["variante"].queryset = prenda.variantes.all()
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        variante = cleaned_data.get("variante")
+        cantidad = cleaned_data.get("cantidad")
+        
+        if variante and cantidad:
+            if variante.stock == 0:
+                raise forms.ValidationError(
+                    f'No hay stock disponible de {variante}.'
+                )
+            if cantidad > variante.stock:
+                raise forms.ValidationError(
+                    f'Stock insuficiente. Solo hay {variante.stock} unidades disponibles de {variante}.'
+                )
+        
+        return cleaned_data
 
 class LoginForm(forms.Form):
     nombreUsuario = forms.CharField(

@@ -106,7 +106,7 @@
 
                     <div class="flex-grow-1">
                         <div class="d-grid h-100">
-                            <button class="btn btn-dark" type="submit">
+                            <button class="btn btn-dark" type="submit" id="addToCart">
                                 <i class="fa fa-shopping-cart me-2"></i>
                                 Añadir al carrito
                             </button>
@@ -114,22 +114,53 @@
                     </div>
                 </div>
             </form>
-
-            <div class="row mb-4">
-                <div class="col-6 text-end">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item me-2">
-                            <a class="text-dark text-primary-hover" href="#"><i class="fab fa-facebook-f"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a class="text-dark text-primary-hover" href="#"><i class="fab fa-twitter"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
         </section>
     </div>
 </main>
+
+<script>
+    // Actualizar el max del campo cantidad según la variante seleccionada
+    const variantesStock = {{ variantes_stock| safe }};
+    const varianteSelect = document.getElementById('id_variante');
+    const cantidadInput = document.getElementById('id_cantidad');
+    const addToCartButton = document.getElementById('addToCart');
+
+    if (varianteSelect && cantidadInput) {
+        varianteSelect.addEventListener('change', function () {
+            const varianteId = parseInt(this.value);
+            if (varianteId && variantesStock[varianteId] !== undefined) {
+                const stock = variantesStock[varianteId];
+                cantidadInput.setAttribute('max', stock);
+                cantidadInput.setAttribute('min', stock > 0 ? 1 : 0);
+
+                if (stock === 0) {
+                    cantidadInput.value = 0;
+                    cantidadInput.disabled = true;
+                    addToCartButton.disabled = true;
+                } else {
+                    cantidadInput.disabled = false;
+                    addToCartButton.disabled = false;
+                    cantidadInput.value = Math.min(parseInt(cantidadInput.value) || 1, stock);
+                }
+            }
+        });
+
+        // Establecer el max inicial si ya hay una variante seleccionada
+        if (varianteSelect.value) {
+            const varianteId = parseInt(varianteSelect.value);
+            if (variantesStock[varianteId] !== undefined) {
+                const stock = variantesStock[varianteId];
+                cantidadInput.setAttribute('max', stock);
+                cantidadInput.setAttribute('min', stock > 0 ? 1 : 0);
+
+                if (stock === 0) {
+                    cantidadInput.value = 0;
+                    cantidadInput.disabled = true;
+                    addToCartButton.disabled = true;
+                }
+            }
+        }
+    }
+</script>
 
 {% endblock %}

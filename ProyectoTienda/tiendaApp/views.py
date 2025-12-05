@@ -84,6 +84,8 @@ class PrendaDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         prenda = self.get_object()
         context["form"] = AddToCartForm(prenda=prenda)
+        # Pasar datos de stock de cada variante para JavaScript
+        context["variantes_stock"] = {v.id: v.stock for v in prenda.variantes.all()}
         return context
     
     def post(self, request, *args, **kwargs):
@@ -96,9 +98,11 @@ class PrendaDetailView(DetailView):
 
             # Agregar al carrito
             carrito = Carrito(request)
-            carrito.agregar(variante=variante, cantidad=cantidad)
-
-            messages.success(request, f'Se agregaron {cantidad} unidades de {variante} al carrito')
+            try:
+                carrito.agregar(variante=variante, cantidad=cantidad)
+                messages.success(request, f'Se agregaron {cantidad} unidades de {variante} al carrito')
+            except ValueError as e:
+                messages.error(request, str(e))
         else:
             messages.error(request, 'Error al agregar al carrito. Por favor, verifica los datos.')
         
@@ -149,9 +153,12 @@ class AgregarAlCarritoView(View):
         cantidad = int(request.POST.get('cantidad', 1))
         
         carrito = Carrito(request)
-        carrito.agregar(variante=variante, cantidad=cantidad)
+        try:
+            carrito.agregar(variante=variante, cantidad=cantidad)
+            messages.success(request, f'Se agregó {cantidad}x {variante} al carrito')
+        except ValueError as e:
+            messages.error(request, str(e))
         
-        messages.success(request, f'Se agregó {cantidad}x {variante} al carrito')
         return redirect('ver_carrito')
 
 class EliminarDelCarritoView(View):
@@ -171,9 +178,12 @@ class ActualizarCarritoView(View):
         cantidad = int(request.POST.get('cantidad', 1))
         
         carrito = Carrito(request)
-        carrito.actualizar_cantidad(variante, cantidad)
+        try:
+            carrito.actualizar_cantidad(variante, cantidad)
+            messages.success(request, 'Carrito actualizado')
+        except ValueError as e:
+            messages.error(request, str(e))
         
-        messages.success(request, 'Carrito actualizado')
         return redirect('ver_carrito')
 
 class CheckoutView(View):
@@ -205,6 +215,14 @@ class CheckoutView(View):
             messages.error(request, 'No puedes realizar un pedido con un carrito vacío')
             return redirect('lista_prendas')
         
+        # Verificar stock disponible antes de procesar la compra
+        for item in carrito:
+            variante = item['variante']
+            cantidad = item['cantidad']
+            if cantidad > variante.stock:
+                messages.error(request, f'Stock insuficiente para {variante}. Solo hay {variante.stock} unidades disponibles.')
+                return redirect('ver_carrito')
+        
         # Crear el pedido con el cliente autenticado
         pedido = Pedido.objects.create(
             cliente=cliente,
@@ -212,14 +230,21 @@ class CheckoutView(View):
             precio_total=0
         )
         
-        # Crear los items del pedido
+        # Crear los items del pedido y reducir el stock
         for item in carrito:
+            variante = item['variante']
+            cantidad = item['cantidad']
+            
             ItemPedido.objects.create(
                 pedido=pedido,
-                variante=item['variante'],
-                cantidad=item['cantidad'],
+                variante=variante,
+                cantidad=cantidad,
                 precio_unitario=Decimal(item['precio'])
             )
+            
+            # Reducir el stock de la variante
+            variante.stock -= cantidad
+            variante.save()
         
         # Calcular el total del pedido
         pedido.calcular_total()

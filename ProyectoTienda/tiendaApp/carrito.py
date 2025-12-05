@@ -18,6 +18,14 @@ class Carrito:
         Agrega una variante de prenda al carrito o actualiza su cantidad
         """
         variante_id = str(variante.id)
+        
+        # Verificar stock disponible
+        cantidad_actual = self.carrito.get(variante_id, {}).get('cantidad', 0)
+        cantidad_total = cantidad_actual + cantidad
+        
+        if cantidad_total > variante.stock:
+            raise ValueError(f'Stock insuficiente. Solo hay {variante.stock} unidades disponibles.')
+        
         if variante_id not in self.carrito:
             self.carrito[variante_id] = {
                 'cantidad': 0,
@@ -49,6 +57,9 @@ class Carrito:
         variante_id = str(variante.id)
         if variante_id in self.carrito:
             if cantidad > 0:
+                # Verificar stock disponible
+                if cantidad > variante.stock:
+                    raise ValueError(f'Stock insuficiente. Solo hay {variante.stock} unidades disponibles.')
                 self.carrito[variante_id]['cantidad'] = cantidad
             else:
                 del self.carrito[variante_id]
