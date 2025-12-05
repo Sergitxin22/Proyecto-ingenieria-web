@@ -2,35 +2,36 @@
 {%block title %} Datos {{cliente.nombre}} {% endblock%}
 {%block content %}
 
-<h1> Datos personales: </h1>
-<p> {{ cliente.nombre }} </p>
-<p> {{ cliente.apellido }} </p>
-<p> {{ cliente.email }} </p>
+<main class="container">
+    <h1> Datos personales: </h1>
+    <p> {{ cliente.nombre }} </p>
+    <p> {{ cliente.apellido }} </p>
+    <p> {{ cliente.email }} </p>
 
-<table class="table">
-    <thead class="table-dark">
+    <table class="table">
+        <thead class="table-dark">
             <th>ID</th>
             <th>Pedido</th>
             <th>Precio</th>
-    </thead>
-    {% for pedido in cliente.pedidos.all%}
+        </thead>
+        {% for pedido in cliente.pedidos.all%}
         <tbody>
             <tr>
                 <td>{{ pedido.id }}</td>
                 <td>
                     {% for prenda in pedido.items.all%}
-                        <ul>
-                            {{ prenda.variante }} - {{ prenda.cantidad }}
-                        </ul>
+                    <ul>
+                        {{ prenda.variante }} ({{ prenda.precio_unitario }}€) x {{ prenda.cantidad }}
+                    </ul>
                     {% endfor %}
                 </td>
-                
-                <td>{{ pedido.precio_total }} </td>
+
+                <td>{{ pedido.precio_total }}€ </td>
             </tr>
         </tbody>
-    {% endfor %}
-</table>
- 
-<a class="btn btn-light" href="{% url 'logout' %}"> Cerrar sesion</a>
+        {% endfor %}
+    </table>
 
+    <a class="btn btn-light" href="{% url 'logout' %}"> Cerrar sesion</a>
+</main>
 {% endblock%}
