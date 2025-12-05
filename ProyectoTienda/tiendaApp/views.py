@@ -65,11 +65,9 @@ def logout_view(request):
     if token:
         cerrar_sesion(token)
     
-    # Limpiar la sesión
-    request.session.flush()
-    
     messages.success(request, "Sesión cerrada correctamente")
     return redirect('home')
+    
 
 
 class PrendaListView(ListView):
