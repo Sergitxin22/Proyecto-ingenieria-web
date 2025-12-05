@@ -50,20 +50,22 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Datos del Cliente</h5>
+
+                    {% if cliente %}
+                    <div class="mb-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Nombre:</label>
+                            <p class="text-muted">{{ cliente.nombre }} {{ cliente.apellido }}</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Email:</label>
+                            <p class="text-muted">{{ cliente.email }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <form method="post">
                         {% csrf_token %}
-
-                        <div class="mb-3">
-                            <label for="cliente_id" class="form-label">Cliente (opcional)</label>
-                            <select class="form-select" id="cliente_id" name="cliente_id">
-                                <option value="">Comprar como invitado</option>
-                                {% load static %}
-                                <!-- Aquí deberías listar los clientes si el usuario está autenticado -->
-                            </select>
-                            <small class="form-text text-muted">
-                                Selecciona un cliente existente o deja vacío para comprar como invitado.
-                            </small>
-                        </div>
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success btn-lg">
