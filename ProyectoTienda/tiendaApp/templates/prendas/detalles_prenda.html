@@ -52,14 +52,12 @@
                     {% if prenda.fotos.all.count > 1 %}
                     <button class="carousel-control-prev h-100" type="button" data-bs-target="#carouselExampleCaptions"
                         data-bs-slide="prev">
-                        <span><i class="fa-solid fa-arrow-left carousel-control-prev-icon  fa-2xl"></i></span>
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
                     <button class="carousel-control-next h-100" type="button" data-bs-target="#carouselExampleCaptions"
                         data-bs-slide="next">
-                        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-                        <span><i class="fa-solid fa-arrow-right carousel-control-next-icon fa-2xl"></i></span>
-
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
                     </button>
                     {% endif %}
