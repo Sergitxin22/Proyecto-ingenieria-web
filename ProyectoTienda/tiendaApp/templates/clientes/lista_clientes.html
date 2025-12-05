@@ -13,6 +13,7 @@
             <th>ID</th>
             <th>Pedido</th>
             <th>Precio</th>
+            <th>Estado</th>
         </thead>
         {% for pedido in cliente.pedidos.all%}
         <tbody>
@@ -27,6 +28,7 @@
                 </td>
 
                 <td>{{ pedido.precio_total }}€ </td>
+                <td>{{ pedido.get_estado_display }}</td>
             </tr>
         </tbody>
         {% endfor %}
