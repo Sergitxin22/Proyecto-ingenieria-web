@@ -1,26 +1,36 @@
 {% extends 'base.html'%}
-
+{%block title %} Datos {{cliente.nombre}} {% endblock%}
 {%block content %}
 
+<h1> Datos personales: </h1>
+<p> {{ cliente.nombre }} </p>
+<p> {{ cliente.apellido }} </p>
+<p> {{ cliente.email }} </p>
 
-
-<table>
-    <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Email</th>
-        <th>Direccion</th>
-        <th>Foto</th>
-    </tr>
-    <tr>
-        <td>{{ cliente.nombre }}</td>
-        <td>{{ cliente.apellido }}</td>
-        <td>{{ cliente.email }}</td>
-        <td>{{ cliente.direccion }} </td>
-        <td><img src="{{cliente.foto}}" alt="Imagen del cliente" width="50"></td>
-    </tr>
+<table class="table">
+    <thead class="table-dark">
+            <th>ID</th>
+            <th>Pedido</th>
+            <th>Precio</th>
+    </thead>
+    {% for pedido in cliente.pedidos.all%}
+        <tbody>
+            <tr>
+                <td>{{ pedido.id }}</td>
+                <td>
+                    {% for prenda in pedido.items.all%}
+                        <ul>
+                            {{ prenda.variante }} - {{ prenda.cantidad }}
+                        </ul>
+                    {% endfor %}
+                </td>
+                
+                <td>{{ pedido.precio_total }} </td>
+            </tr>
+        </tbody>
+    {% endfor %}
 </table>
-
-<a href="{% url 'logout' %}">cerrar sesion</a>
+ 
+<a class="btn btn-light" href="{% url 'logout' %}"> Cerrar sesion</a>
 
 {% endblock%}
