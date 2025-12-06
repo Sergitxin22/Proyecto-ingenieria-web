@@ -106,15 +106,15 @@
                             <h4>Teléfono</h4>
                         </div>
                     </div>
-                    <div class="row" v-for="(contacto, index) in contactos">
+                    <div  vocab="http://schema.org/" typeof="Person" class="row" v-for="(contacto, index) in contactos">
                         <div class="col-xs-4">
-                            <p>{{contacto.name}}</p>
+                            <p property="name">{{contacto.name}}</p>
                         </div>
                         <div class="col-xs-4">
-                            <p>{{contacto.email}}</p>
+                            <p property="email">{{contacto.email}}</p>
                         </div>
                         <div class="col-xs-3">
-                            <p>{{contacto.phone}}</p>
+                            <p property="phone">{{contacto.phone}}</p>
                         </div>
                         <div class="col-xs-1">
                             <button @click="deletePerson(index)" class="btn btn-danger btn-sm"><span
