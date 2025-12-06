@@ -88,6 +88,10 @@
                 {{ prenda.descripcion }}
             </p>
 
+            <p class="mb-4 text-body-emphasis">
+                {{ prenda.precio }} €
+            </p>
+
             <!-- FORMULARIO DJANGO REAL -->
             <form method="POST">
                 {% csrf_token %}
