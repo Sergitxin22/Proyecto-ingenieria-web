@@ -64,12 +64,19 @@
                     </div>
                     {% endif %}
 
-                    <form method="post">
+                    <form method="post" action="{% url 'crear_checkout_session' %}">
                         {% csrf_token %}
+
+                        <div class="alert alert-info">
+                            <small>
+                                <i class="fas fa-info-circle"></i>
+                                Serás redirigido a Stripe para realizar el pago de forma segura.
+                            </small>
+                        </div>
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-success btn-lg">
-                                Confirmar Pedido
+                                <i class="fas fa-lock"></i> Pagar con Stripe
                             </button>
                             <a href="{% url 'ver_carrito' %}" class="btn btn-secondary">
                                 Volver al carrito

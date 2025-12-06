@@ -65,6 +65,11 @@ class Pedido(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='pedidos', null=True, blank=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='carrito')
 
+     # Nuevos campos para Stripe
+    stripe_checkout_session_id = models.CharField(max_length=255, blank=True, null=True)
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
+    pagado = models.BooleanField(default=False)
+    
     class Meta:
         verbose_name = "Pedido"
         verbose_name_plural = "Pedidos"

@@ -14,10 +14,17 @@ urlpatterns=[
     path('login/',views.login_view,name='login'),
     path("registrarse/", views.signup_view, name="signup"),
     path('logout/', views.logout_view, name='logout'),
+
     # URLs del carrito
     path('carrito/', views.CarritoView.as_view(), name='ver_carrito'),
     path('carrito/agregar/<int:variante_id>/', views.AgregarAlCarritoView.as_view(), name='agregar_al_carrito'),
     path('carrito/eliminar/<int:variante_id>/', views.EliminarDelCarritoView.as_view(), name='eliminar_del_carrito'),
     path('carrito/actualizar/<int:variante_id>/', views.ActualizarCarritoView.as_view(), name='actualizar_carrito'),
     path('carrito/checkout/', views.CheckoutView.as_view(), name='checkout'),
+
+    # URLs de Stripe
+    path('carrito/crear-checkout-session/', views.CrearCheckoutSessionView.as_view(), name='crear_checkout_session'),
+    path('carrito/pago-exitoso/', views.PagoExitosoView.as_view(), name='pago_exitoso'),
+    path('carrito/pago-cancelado/', views.PagoCanceladoView.as_view(), name='pago_cancelado'),
+    path('stripe/webhook/', views.StripeWebhookView.as_view(), name='stripe_webhook'),
 ]

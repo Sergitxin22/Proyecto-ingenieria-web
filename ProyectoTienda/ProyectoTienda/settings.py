@@ -125,3 +125,11 @@ STATICFILES_DIRS = [BASE_DIR / "tiendaApp/static",]
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuración de Stripe
+STRIPE_PUBLIC_KEY = 'pk_test_tu_clave_publica_aqui'
+STRIPE_SECRET_KEY = 'sk_test_tu_clave_secreta_aqui'
+STRIPE_WEBHOOK_SECRET = 'whsec_tu_webhook_secret_aqui'  # Lo obtendrás después
+
+# URL base para redirecciones de Stripe
+SITE_URL = 'http://127.0.0.1:8000'  # Cambiar en producción
