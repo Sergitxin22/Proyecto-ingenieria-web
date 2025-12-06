@@ -35,7 +35,7 @@
                         </a>
                     </td>
                     <td>{{ item.variante.descripcion }}</td>
-                    <td>${{ item.precio }}</td>
+                    <td>{{ item.precio }}€</td>
                     <td>
                         <form method="post" action="{% url 'actualizar_carrito' item.variante.id %}" class="d-inline">
                             {% csrf_token %}
@@ -44,7 +44,7 @@
                             <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
                         </form>
                     </td>
-                    <td>${{ item.total }}</td>
+                    <td>{{ item.total }}€</td>
                     <td>
                         <form method="post" action="{% url 'eliminar_del_carrito' item.variante.id %}" class="d-inline">
                             {% csrf_token %}
@@ -57,7 +57,7 @@
             <tfoot>
                 <tr>
                     <th colspan="4" class="text-end">Total:</th>
-                    <th>${{ carrito.get_total_precio }}</th>
+                    <th>{{ carrito.get_total_precio }}€</th>
                     <th></th>
                 </tr>
             </tfoot>

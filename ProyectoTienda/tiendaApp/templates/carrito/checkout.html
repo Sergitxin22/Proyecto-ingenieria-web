@@ -32,15 +32,15 @@
                         <td>{{ item.variante.prenda.nombre }}</td>
                         <td>{{ item.variante.descripcion }}</td>
                         <td>{{ item.cantidad }}</td>
-                        <td>${{ item.precio }}</td>
-                        <td>${{ item.total }}</td>
+                        <td>{{ item.precio }}€</td>
+                        <td>{{ item.total }}€</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
                         <th colspan="4" class="text-end">Total:</th>
-                        <th>${{ carrito.get_total_precio }}</th>
+                        <th>{{ carrito.get_total_precio }}€</th>
                     </tr>
                 </tfoot>
             </table>

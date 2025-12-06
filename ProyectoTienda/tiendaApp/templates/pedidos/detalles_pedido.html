@@ -24,7 +24,7 @@
             {% else %}
             <p><strong>Cliente: </strong>Invitado</p>
             {% endif %}
-            <p><strong>Precio Total: </strong>${{pedido.precio_total}}</p>
+            <p><strong>Precio Total: </strong>{{pedido.precio_total}}€</p>
         </div>
     </div>
 
@@ -53,15 +53,15 @@
                         </td>
                         <td>{{ item.variante.descripcion }}</td>
                         <td>{{ item.cantidad }}</td>
-                        <td>${{ item.precio_unitario }}</td>
-                        <td>${{ item.subtotal }}</td>
+                        <td>{{ item.precio_unitario }}€</td>
+                        <td>{{ item.subtotal }}€</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
                         <th colspan="4" class="text-end">Total:</th>
-                        <th>${{ pedido.precio_total }}</th>
+                        <th>{{ pedido.precio_total }}€</th>
                     </tr>
                 </tfoot>
             </table>
