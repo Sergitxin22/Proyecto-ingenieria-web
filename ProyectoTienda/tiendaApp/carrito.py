@@ -1,4 +1,4 @@
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from .models import VariantePrenda, Prenda
 
 class Carrito:
@@ -29,7 +29,7 @@ class Carrito:
         if variante_id not in self.carrito:
             self.carrito[variante_id] = {
                 'cantidad': 0,
-                'precio': str(variante.prenda.precio)
+                'precio': str(Decimal(variante.prenda.precio))
             }
         
         self.carrito[variante_id]['cantidad'] += cantidad
@@ -95,10 +95,19 @@ class Carrito:
         return sum(item['cantidad'] for item in self.carrito.values())
 
     def get_total_precio(self):
-        """
-        Calcula el precio total del carrito
-        """
-        return sum(Decimal(item['precio']) * item['cantidad'] for item in self.carrito.values())
+        total = Decimal('0')
+        
+        for item in self.carrito.values():
+            precio_raw = item.get('precio', '0')
+            
+            try:
+                precio = Decimal(str(precio_raw).replace(',', '.').strip())
+            except InvalidOperation:
+                precio = Decimal('0')
+
+            total += precio * int(item.get('cantidad', 0))
+
+        return total
 
     def get_items_count(self):
         """
