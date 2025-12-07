@@ -16,34 +16,36 @@
     <div class="row">
         <div class="col-md-8">
             <h3>Resumen del Pedido</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Variante</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                        <th>Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in carrito %}
-                    <tr>
-                        <td>{{ item.variante.prenda.nombre }}</td>
-                        <td>{{ item.variante.descripcion }}</td>
-                        <td>{{ item.cantidad }}</td>
-                        <td>{{ item.precio }}€</td>
-                        <td>{{ item.total }}€</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="4" class="text-end">Total:</th>
-                        <th>{{ carrito.get_total_precio }}€</th>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Variante</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in carrito %}
+                        <tr>
+                            <td>{{ item.variante.prenda.nombre }}</td>
+                            <td>{{ item.variante.descripcion }}</td>
+                            <td>{{ item.cantidad }}</td>
+                            <td>{{ item.precio }}€</td>
+                            <td>{{ item.total }}€</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-end">Total:</th>
+                            <th>{{ carrito.get_total_precio }}€</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
 
         <div class="col-md-4">
