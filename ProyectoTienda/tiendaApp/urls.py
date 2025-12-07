@@ -3,6 +3,7 @@ from .import views
 
 urlpatterns=[
     path('', views.base, name='home'),
+    path('test-500/', views.test_500, name='test_500'),  # Ruta para probar error 500
     path('prendas/', views.PrendaListView.as_view(), name='lista_prendas'),
     path('pedidos/', views.PedidoListView.as_view(), name='lista_pedidos'),
     path('clientes/', views.ClienteListView.as_view(), name='lista_clientes'),

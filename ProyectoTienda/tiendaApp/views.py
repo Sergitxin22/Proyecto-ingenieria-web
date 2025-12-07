@@ -19,6 +19,10 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 def base(request):
     return render(request,'pages/home.html')
 
+def test_500(request):
+    """Vista para probar el error 500"""
+    raise Exception("Error 500 de prueba")
+
 
 def login_view(request):
     form = LoginForm(request.POST or None)

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Página no encontrada - 404{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="error-content">
+                <!-- Número 404 grande -->
+                <h1 class="display-1 fw-bold text-primary mb-4" style="font-size: 8rem;">404</h1>
+
+                <!-- Icono -->
+                <div class="mb-4">
+                    <i class="fas fa-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
+                </div>
+
+                <!-- Mensaje principal -->
+                <h2 class="mb-3">¡Oops! Página no encontrada</h2>
+
+                <!-- Descripción -->
+                <p class="text-muted mb-4">
+                    Lo sentimos, la página que estás buscando no existe o ha sido movida.
+                </p>
+
+                <!-- Sugerencias -->
+                <div class="alert alert-info mb-4">
+                    <p class="mb-2"><strong>¿Qué puedes hacer?</strong></p>
+                    <div class="d-inline-block text-start">
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Verifica que la URL esté correcta
+                            </li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Vuelve a la página de inicio</li>
+                            <li><i class="fas fa-check-circle text-success me-2"></i>Explora nuestras prendas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-4">
+                        <i class="fas fa-home me-2"></i>Ir al Inicio
+                    </a>
+                    <a href="{% url 'lista_prendas' %}" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-shopping-bag me-2"></i>Ver Prendas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-content {
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .error-content h1 {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+{% endblock %}
