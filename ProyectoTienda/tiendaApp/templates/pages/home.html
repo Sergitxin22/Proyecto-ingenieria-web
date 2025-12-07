@@ -7,6 +7,12 @@
     height: 100vh;
   }
 
+  @media screen and (max-width: 576px) {
+    .carousel-item>* {
+      height: 60vh;
+    }
+  }
+
   .carousel-item {
     width: 100%;
     overflow: hidden;
@@ -15,6 +21,12 @@
   section {
     min-height: 100vh;
     /* background-color: aqua; */
+  }
+
+  @media screen and (max-width: 576px) {
+    section {
+      min-height: auto;
+    }
   }
 
   .overlay-carousel {
@@ -44,6 +56,22 @@
     transform: translate(-20%, -50%);
   }
 
+  @media screen and (max-width: 576px) {
+    .car-1 {
+      left: 10%;
+      transform: translate(-10%, -50%);
+    }
+
+    .car-1 h2 {
+      font-size: 2.5rem;
+    }
+
+    .car-1 .subtitle,
+    .car-1 p {
+      font-size: 0.9rem;
+    }
+  }
+
   .img-car-1 {
     width: 100%;
     height: auto;
@@ -55,10 +83,35 @@
     transform: translate(-50%, -50%);
   }
 
+  @media screen and (max-width: 576px) {
+    .car-2 h2 {
+      font-size: 2.5rem;
+    }
+
+    .car-2 .subtitle {
+      font-size: 0.9rem;
+    }
+  }
+
   .car-3 {
     top: 50%;
     left: 80%;
     transform: translate(-80%, -50%);
+  }
+
+  @media screen and (max-width: 576px) {
+    .car-3 {
+      left: 90%;
+      transform: translate(-90%, -50%);
+    }
+
+    .car-3 h2 {
+      font-size: 2.5rem;
+    }
+
+    .car-3 .subtitle {
+      font-size: 0.9rem;
+    }
   }
 
   @media screen and (max-width: 900) {
@@ -91,9 +144,21 @@
     /* Ajusta el tamaño de la imagen al 100% del contenedor */
   }
 
+  @media screen and (max-width: 576px) {
+    .categorias img {
+      height: 50vh;
+    }
+  }
+
   .tarjeta {
     font-size: 4rem;
     overflow: hidden;
+  }
+
+  @media screen and (max-width: 576px) {
+    .tarjeta {
+      font-size: 2rem;
+    }
   }
 
   .tarjeta:hover img {
@@ -178,7 +243,7 @@
           <p class="text-muted mb-5">
             Descubre nuestra colección exclusiva de prendas elegantes y cómodas para cualquier ocasión
           </p>
-          <a class="btn btn-dark" href="#">Descubre más</a>
+          <a class="btn btn-dark" href="{% url 'lista_prendas' %}">Descubre más</a>
         </div>
       </div>
     </div>
@@ -191,7 +256,7 @@
         <div class="content car-2 text-center">
           <p class="subtitle letter-spacing-3 mb-3 text-dark font-weight-light">Azul y Blanco</p>
           <h2 class="display-1 mb-3" style="line-height: 1">Lino y mezclilla</h2>
-          <a class="btn btn-dark" href="#">Empieza a comprar</a>
+          <a class="btn btn-dark" href="{% url 'lista_prendas' %}">Empieza a comprar</a>
         </div>
       </div>
     </div>
@@ -204,7 +269,7 @@
         <div class="content car-3">
           <p class="subtitle letter-spacing-3 mb-3 text-primary font-weight-light mb-4">Zapatillas</p>
           <h2 class="display-1 mb-5" style="line-height: 1">Para cada ocasión</h2>
-          <a class="btn btn-dark" href="#">Empieza a comprar</a>
+          <a class="btn btn-dark" href="{% url 'lista_prendas' %}">Empieza a comprar</a>
         </div>
       </div>
     </div>
@@ -221,7 +286,7 @@
   </button>
 </section>
 
-<section class="d-flex justify-content-center align-items-center categorias gap-4">
+<section class="d-flex flex-column flex-sm-row justify-content-center align-items-center categorias gap-4 py-4 py-sm-0">
   <div class="position-relative tarjeta">
     <img src="https://d19m59y37dris4.cloudfront.net/varkala/2-1/img/product/category-women.jpg" alt="" />
     <span class="position-absolute top-50 start-50 translate-middle text-white fw-bold">Mujer</span>
