@@ -1,0 +1,103 @@
+{% load static %}
+<footer class="bg-dark text-white pt-5 pb-4">
+    <div class="container">
+        <div class="row">
+            <!-- Columna 1: Información de la tienda -->
+            <div class="col-lg-4 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-3 fw-bold">Tienda Somai</h5>
+                <p class="text-white-50">
+                    Tu destino de moda online. Descubre las últimas tendencias en ropa y accesorios para hombre y mujer.
+                </p>
+                <div class="mt-4">
+                    <a href="#" class="text-white me-3 fs-5"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-white me-3 fs-5"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white me-3 fs-5"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white fs-5"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+
+            <!-- Columna 2: Enlaces rápidos -->
+            <div class="col-lg-2 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-3 fw-bold">Comprar</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="/categorias/1" class="text-white-50 text-decoration-none">Mujer</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="/categorias/2" class="text-white-50 text-decoration-none">Hombre</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Nuevos productos</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Ofertas</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 3: Información -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-3 fw-bold">Información</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Sobre nosotros</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Contacto</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Envíos y devoluciones</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Términos y condiciones</a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="#" class="text-white-50 text-decoration-none">Política de privacidad</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Columna 4: Newsletter -->
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase mb-3 fw-bold">Newsletter</h5>
+                <p class="text-white-50 mb-3">Suscríbete para recibir ofertas exclusivas y novedades.</p>
+                <form class="d-flex flex-column">
+                    <input type="email" class="form-control mb-2" placeholder="Tu correo electrónico" required>
+                    <button type="submit" class="btn btn-outline-light">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Línea divisoria -->
+        <hr class="bg-white-50 my-4">
+
+        <!-- Copyright -->
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-white-50 mb-0">
+                    © 2025 Tienda Somai. Todos los derechos reservados.
+                </p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <p class="text-white-50 mb-0">
+                    <i class="fas fa-credit-card me-2"></i>
+                    <i class="fab fa-cc-visa me-2"></i>
+                    <i class="fab fa-cc-mastercard me-2"></i>
+                    <i class="fab fa-cc-stripe"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer a:hover {
+        color: #ffffff !important;
+        transition: color 0.3s ease;
+    }
+
+    footer .btn-outline-light:hover {
+        background-color: #ffffff;
+        color: #212529;
+    }
+</style>
