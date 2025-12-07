@@ -18,6 +18,8 @@ class AddToCartForm(forms.Form):
         super().__init__(*args, **kwargs)
         if prenda:
             self.fields["variante"].queryset = prenda.variantes.all()
+            # Mostrar solo la descripción de la variante en el formulario
+            self.fields["variante"].label_from_instance = lambda obj: obj.descripcion
     
     def clean(self):
         cleaned_data = super().clean()
